@@ -12,15 +12,13 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
     
-    @IBOutlet weak var menuView: UIImageView!
-    
     @IBOutlet weak var rescheduleView: UIImageView!
+    
+    @IBOutlet weak var listView: UIImageView!
     
     @IBOutlet weak var mailboxView: UIView!
     
     @IBOutlet weak var laterIcon: UIImageView!
-    
-    @IBOutlet weak var menuButton: UIButton!
     
     @IBOutlet weak var dragLeft: UIView!
     
@@ -28,9 +26,10 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var messageView: UIImageView!
     
-    @IBOutlet var menuEdgePan: UIScreenEdgePanGestureRecognizer!
-    
     @IBOutlet var messagePanGesture: UIPanGestureRecognizer!
+    
+    @IBOutlet var listEdge: UIScreenEdgePanGestureRecognizer!
+  
     
     var messageInitialFrame: CGPoint!
     var messageLeft: CGPoint!
@@ -40,6 +39,8 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        listView.alpha=0
+        rescheduleView.alpha=0
         laterIcon.alpha=0.4
         scrollView.contentSize = CGSize(width: 320, height: 1202)
         
@@ -49,6 +50,9 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         
         messageView.addGestureRecognizer(messagePanGesture)
         
+        let edgeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "onList:")
+        edgeGesture.edges = UIRectEdge.Left
+        listView.addGestureRecognizer(edgeGesture)
         
         // Do any additional setup after loading the view.
     }
@@ -65,7 +69,7 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         let point = messagePanGesture.locationInView(view)
         // Relative change in (x,y) coordinates from where gesture began.
         let messageTranslation = messagePanGesture.translationInView(view)
-        let velocity = messagePanGesture.velocityInView(view)
+        _ = messagePanGesture.velocityInView(view)
         
         if messagePanGesture.state == UIGestureRecognizerState.Began {
             print("Gesture began at: \(point)")
@@ -90,6 +94,9 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
    
 }
 
+    @IBAction func onList(sender: UIScreenEdgePanGestureRecognizer) {
+        print ("You tapped the list")
+    }
 
 
     
