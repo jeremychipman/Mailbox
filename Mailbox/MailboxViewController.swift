@@ -34,6 +34,8 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
     var messageInitialFrame: CGPoint!
     var messageLeft: CGPoint!
     var messageRight: CGPoint!
+    
+    
 
     
     override func viewDidLoad() {
@@ -51,8 +53,8 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         messageView.addGestureRecognizer(messagePanGesture)
         
         let edgeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "onList:")
-        edgeGesture.edges = UIRectEdge.Left
-        listView.addGestureRecognizer(edgeGesture)
+        
+        mailboxView.addGestureRecognizer(listEdge)
         
         // Do any additional setup after loading the view.
     }
@@ -66,8 +68,11 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
   
     @IBAction func onLeftPan(messagePanGesture: UIPanGestureRecognizer) {
         // Absolute (x,y) coordinates in parent view
+        
         let point = messagePanGesture.locationInView(view)
+        
         // Relative change in (x,y) coordinates from where gesture began.
+        
         let messageTranslation = messagePanGesture.translationInView(view)
         _ = messagePanGesture.velocityInView(view)
         
@@ -78,7 +83,9 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         } else if messagePanGesture.state == UIGestureRecognizerState.Changed {
             print("Gesture changed at: \(point)")
             
+        
           messageView.frame.origin.x = CGFloat(messageInitialFrame.x + messageTranslation.x)
+            
             
         } else if messagePanGesture.state == UIGestureRecognizerState.Ended {
             print("Gesture ended at: \(point)")
@@ -96,8 +103,33 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBAction func onList(sender: UIScreenEdgePanGestureRecognizer) {
         print ("You tapped the list")
-    }
+        let location = sender.locationInView(view)
+        let translation = sender.translationInView(view)
+        let velocity = sender.velocityInView(view)
+       
+        
+        
+        if listEdge.state == UIGestureRecognizerState.Began {
+            print("Gesture began")
+            mailboxView.center = location
+            
+        } else if listEdge.state == UIGestureRecognizerState.Changed {
+            print("Gesture changed")
+            
+        } else if listEdge.state == UIGestureRecognizerState.Ended {
+            print("Gesture ended")
+            
+            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+                
+                self.laterIcon.alpha=1
+                self.dragLeft.frame.origin.x = CGFloat(self.messageInitialFrame.x)
+                
+                }, completion: nil)
+        }
 
+        
+    }
+    
 
     
     
