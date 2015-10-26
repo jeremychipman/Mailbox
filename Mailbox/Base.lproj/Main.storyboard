@@ -28,31 +28,24 @@
                                         <rect key="frame" x="0.0" y="-226" width="320" height="1836"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <view contentMode="scaleToFill" id="epJ-Sh-KHW" userLabel="Drag Right View">
+                                    <view contentMode="scaleToFill" id="Xgt-BB-g4a" userLabel="Drag View">
                                         <rect key="frame" x="0.0" y="5" width="320" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="delete_icon" id="yoS-FZ-BbQ">
-                                                <rect key="frame" x="50" y="31" width="25" height="25"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="archive_icon" id="aXo-sv-JVe">
-                                                <rect key="frame" x="100" y="31" width="25" height="25"/>
+                                                <rect key="frame" x="0.0" y="31" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" id="Xgt-BB-g4a" userLabel="Drag Left View">
-                                        <rect key="frame" x="0.0" y="5" width="320" height="86"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="later_icon" id="CrP-b0-nr8">
-                                                <rect key="frame" x="296" y="31" width="25" height="25"/>
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="delete_icon" id="yoS-FZ-BbQ">
+                                                <rect key="frame" x="125" y="31" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="list_icon" id="i2P-Mq-UVa">
                                                 <rect key="frame" x="147" y="31" width="25" height="25"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                            </imageView>
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="later_icon" id="CrP-b0-nr8">
+                                                <rect key="frame" x="280" y="31" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                         </subviews>
@@ -61,6 +54,7 @@
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="message" id="X3o-ww-G2G" userLabel="Message View">
                                         <rect key="frame" x="0.0" y="5" width="320" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="7wE-Nh-9SG" appends="YES" id="Z5B-mz-TbM"/>
@@ -70,9 +64,9 @@
                             </scrollView>
                             <view contentMode="scaleToFill" id="usp-FT-5Rd" userLabel="Mailbox View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="146"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="aMe-BD-bCP" customClass="nav">
+                                    <view contentMode="scaleToFill" id="aMe-BD-bCP">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
@@ -80,9 +74,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <gestureRecognizers/>
-                                                <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="Huu-wW-Nij" appends="YES" id="GSZ-6z-WkR"/>
-                                                </connections>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="mail_nav_icon" id="oGL-3w-sjF">
                                                 <rect key="frame" x="148" y="32" width="25" height="20"/>
@@ -118,10 +109,10 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="1202"/>
                     <connections>
-                        <outlet property="dragLeft" destination="Xgt-BB-g4a" id="qVS-GA-19e"/>
-                        <outlet property="dragRight" destination="epJ-Sh-KHW" id="Azj-Rc-4RM"/>
+                        <outlet property="archiveIcon" destination="aXo-sv-JVe" id="aUB-uU-9ob"/>
+                        <outlet property="deleteIcon" destination="yoS-FZ-BbQ" id="nub-Da-hTg"/>
+                        <outlet property="dragView" destination="Xgt-BB-g4a" id="qbE-t7-eTJ"/>
                         <outlet property="laterIcon" destination="CrP-b0-nr8" id="cP4-qz-JT4"/>
-                        <outlet property="listEdge" destination="Huu-wW-Nij" id="Jfq-9w-NiH"/>
                         <outlet property="listView" destination="fam-rw-A0c" id="Q0S-Wi-6wM"/>
                         <outlet property="mailboxView" destination="usp-FT-5Rd" id="p8w-LE-hKt"/>
                         <outlet property="messagePanGesture" destination="7wE-Nh-9SG" id="bgr-f7-Rt0"/>
@@ -131,12 +122,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RdP-cZ-AO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="Huu-wW-Nij">
-                    <connections>
-                        <action selector="onList:" destination="LgM-8K-CQW" id="8qo-PK-10s"/>
-                    </connections>
-                </screenEdgePanGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="7wE-Nh-9SG">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="7wE-Nh-9SG" userLabel="Message Pan Gesture Recognizer">
                     <connections>
                         <action selector="onLeftPan:" destination="LgM-8K-CQW" id="Pk6-6H-WnR"/>
                     </connections>
