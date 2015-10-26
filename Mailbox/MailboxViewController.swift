@@ -15,9 +15,11 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var listView: UIImageView!
     @IBOutlet weak var mailboxView: UIView!
     @IBOutlet weak var dragView: UIView!
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var laterIcon: UIImageView!
     @IBOutlet weak var archiveIcon: UIImageView!
     @IBOutlet weak var deleteIcon: UIImageView!
+    @IBOutlet weak var listIcon: UIImageView!
     @IBOutlet weak var messageView: UIImageView!
     @IBOutlet var messagePanGesture: UIPanGestureRecognizer!
     
@@ -28,21 +30,19 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
     var laterInitialFrame: CGPoint!
     var archiveInitialFrame: CGPoint!
     var deleteInitialFrame: CGPoint!
-    
+    var listInitialFrame: CGPoint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //do additional setup after loading the view.
         
-        messageInitialFrame = messageView.frame.origin
-        laterInitialFrame = laterIcon.frame.origin
-        archiveInitialFrame = archiveIcon.frame.origin
-        deleteInitialFrame = deleteIcon.frame.origin
         listView.alpha=0
         rescheduleView.alpha=0
         laterIcon.alpha=0.4
-        archiveIcon.alpha=0.4
+        deleteIcon.alpha=0
+        listIcon.alpha=0
+
         scrollView.contentSize = CGSize(width: 320, height: 1202)
         
         let messagePanGesture = UIPanGestureRecognizer(target: self, action: "onLeftPan:")
@@ -86,7 +86,12 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if messagePanGesture.state == UIGestureRecognizerState.Began {
             print("Gesture began at: \(point)")
-         
+            
+            messageInitialFrame = messageView.frame.origin
+            laterInitialFrame = laterIcon.frame.origin
+            archiveInitialFrame = archiveIcon.frame.origin
+            deleteInitialFrame = deleteIcon.frame.origin
+            
             
         } else if messagePanGesture.state == UIGestureRecognizerState.Changed {
             print("Gesture changed at: \(point)")
@@ -94,22 +99,27 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
             
             messageView.frame.origin.x = CGFloat(messageInitialFrame.x + messageTranslation.x)
             
-//            /* when I comment this out, the icons appear */
-//            archiveIcon.frame.origin.x = CGFloat(archiveInitialFrame.x + translation.x)
-//            deleteIcon.frame.origin.x = CGFloat(deleteInitialFrame.x + translation.x)
-//            laterIcon.frame.origin.x = CGFloat(laterInitialFrame.x + translation.x)
+            //            /* when I comment this out, the icons appear */
+            //            archiveIcon.frame.origin.x = CGFloat(archiveInitialFrame.x + translation.x)
+            //            deleteIcon.frame.origin.x = CGFloat(deleteInitialFrame.x + translation.x)
+            //            laterIcon.frame.origin.x = CGFloat(laterInitialFrame.x + translation.x)
             
             if messageTranslation.x > 0 && messageTranslation.x <= 60 {
                 dragView.backgroundColor = UIColorFromHex(0xDCDFE0, alpha:1.0)
+                archiveIcon.alpha=0.4
+                archiveIcon.frame.origin.x = CGFloat(archiveInitialFrame.x + messageTranslation.x - 40)
                 
             } else if messageTranslation.x > 60 && messageTranslation.x <= 260 {
                 dragView.backgroundColor = UIColorFromHex(0x55D959, alpha: 1.0)
                 archiveIcon.alpha = 1
+                deleteIcon.alpha = 0
+                archiveIcon.frame.origin.x = CGFloat(archiveInitialFrame.x + messageTranslation.x - 40)
                 
             } else if messageTranslation.x > 260 {
                 dragView.backgroundColor = UIColorFromHex(0xF24D44, alpha: 1.0)
-                deleteIcon.hidden = false
-                
+                archiveIcon.alpha = 0
+                deleteIcon.alpha = 1
+                deleteIcon.frame.origin.x = CGFloat(deleteInitialFrame.x + messageTranslation.x - 62)
                 
             } else if messageTranslation.x > -60 && messageTranslation.x < 0 {
                 dragView.backgroundColor = UIColorFromHex(0xDCDFE0, alpha: 1.0)
@@ -119,6 +129,14 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
                 dragView.backgroundColor = UIColorFromHex(0xFFE066, alpha: 1.0)
                 self.laterIcon.alpha = 1
                 
+            } else if messageTranslation.x < -260 {
+                dragView.backgroundColor = UIColorFromHex(0xF4A460, alpha: 1.0)
+                self.laterIcon.alpha = 0
+                self.listIcon.alpha=1
+                self.laterIcon.alpha=0
+                self.archiveIcon.alpha=0
+                self.deleteIcon.alpha=0
+                
                 
             }
             
@@ -126,39 +144,41 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
             print("Gesture ended at: \(point)")
             
             UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+                self.rescheduleView.alpha=1
+                self.mailboxView.alpha=0
+                self.scrollView.alpha=0
                 
-                self.archiveIcon.alpha=1
-                self.dragView.frame.origin.x = CGFloat(self.messageInitialFrame.x)
+//                self.dragView.frame.origin.x = CGFloat(self.messageInitialFrame.x)
                 
                 }, completion: nil)
-            }
+        }
     }
     
+    
+    
+    
+    
+    
+    func onEdgePan (edgePanGesture: UIScreenEdgePanGestureRecognizer){
+        var point = edgePanGesture.locationInView(view)
+        var translation=edgePanGesture.translationInView(view)
+        print("screen edge called \(mailboxView.frame.origin)")
         
-        
-        
-        
-        
-        func onEdgePan (edgePanGesture: UIScreenEdgePanGestureRecognizer){
-            var point = edgePanGesture.locationInView(view)
-            var translation=edgePanGesture.translationInView(view)
-            print("screen edge called \(mailboxView.frame.origin)")
-            
-        }
-        
-        
-        
-        
-        
-        
-        /*
-        // MARK: - Navigation
-        
-        // In a storyboard-based application, you will often want to do a little preparation before navigation
-        override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        }
-        */
-        
+    }
+    
+    
+    
+    
+    
+    
+    /*
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    }
+    */
+    
 }
