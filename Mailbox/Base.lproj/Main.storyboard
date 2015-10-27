@@ -9,10 +9,10 @@
             <objects>
                 <viewController title="Mailbox View Controller" id="LgM-8K-CQW" customClass="MailboxViewController" customModule="Mailbox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IH8-Xc-Z8J">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1202"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="menu" id="fam-rw-A0c" userLabel="List View">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="list" id="fam-rw-A0c" userLabel="List View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
@@ -21,23 +21,19 @@
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="4Rx-hM-aSR">
-                                <rect key="frame" x="0.0" y="137" width="320" height="1065"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <rect key="frame" x="0.0" y="137" width="320" height="431"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="feed" id="GGt-Le-zgJ">
-                                        <rect key="frame" x="0.0" y="-226" width="320" height="1836"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <view contentMode="scaleToFill" id="Xgt-BB-g4a" userLabel="DragView">
                                         <rect key="frame" x="0.0" y="5" width="320" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="archive_icon" id="aXo-sv-JVe">
-                                                <rect key="frame" x="15" y="31" width="25" height="25"/>
+                                                <rect key="frame" x="18" y="31" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="delete_icon" id="yoS-FZ-BbQ">
-                                                <rect key="frame" x="125" y="31" width="25" height="25"/>
+                                                <rect key="frame" x="243" y="31" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="list_icon" id="i2P-Mq-UVa">
@@ -59,6 +55,10 @@
                                             <outletCollection property="gestureRecognizers" destination="7wE-Nh-9SG" appends="YES" id="Z5B-mz-TbM"/>
                                         </connections>
                                     </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="feed" id="GGt-Le-zgJ">
+                                        <rect key="frame" x="0.0" y="91" width="320" height="1202"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
                                 </subviews>
                             </scrollView>
                             <view contentMode="scaleToFill" id="usp-FT-5Rd" userLabel="Mailbox View">
@@ -70,18 +70,6 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <gestureRecognizers/>
                                     </imageView>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="mail_nav_icon" id="oGL-3w-sjF">
-                                        <rect key="frame" x="148" y="32" width="25" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </imageView>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="later_nav_icon" id="eTC-5W-v4s">
-                                        <rect key="frame" x="106" y="32" width="25" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </imageView>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="archive_nav_icon" id="sVQ-1Q-yR7">
-                                        <rect key="frame" x="186" y="32" width="25" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="help_label" id="fS8-XZ-TGe">
                                         <rect key="frame" x="0.0" y="65" width="320" height="37"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -90,6 +78,16 @@
                                         <rect key="frame" x="0.0" y="98" width="320" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </imageView>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="pvv-Mz-7gx">
+                                        <rect key="frame" x="90" y="24" width="121" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="" image="later_icon"/>
+                                            <segment title="" image="mail_nav_icon"/>
+                                            <segment title="" image="archive_nav_icon"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.0" green="0.49019607843137253" blue="0.77647058823529413" alpha="1" colorSpace="calibratedRGB"/>
+                                    </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -98,19 +96,20 @@
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="1202"/>
                     <connections>
                         <outlet property="archiveIcon" destination="aXo-sv-JVe" id="hHc-Fz-p45"/>
                         <outlet property="deleteIcon" destination="yoS-FZ-BbQ" id="2Ii-dq-g5w"/>
                         <outlet property="dragView" destination="Xgt-BB-g4a" id="nox-aS-PzS"/>
+                        <outlet property="feedImage" destination="GGt-Le-zgJ" id="6TI-B5-PXD"/>
                         <outlet property="laterIcon" destination="CrP-b0-nr8" id="cP4-qz-JT4"/>
                         <outlet property="listIcon" destination="i2P-Mq-UVa" id="VQA-N8-S02"/>
+                        <outlet property="listTapGesture" destination="lDd-GF-mb7" id="aCh-gp-JdJ"/>
                         <outlet property="listView" destination="fam-rw-A0c" id="Q0S-Wi-6wM"/>
                         <outlet property="mailboxView" destination="usp-FT-5Rd" id="p8w-LE-hKt"/>
                         <outlet property="mainView" destination="IH8-Xc-Z8J" id="Xg5-Ni-qDl"/>
                         <outlet property="messagePanGesture" destination="7wE-Nh-9SG" id="bgr-f7-Rt0"/>
                         <outlet property="messageView" destination="X3o-ww-G2G" id="0yo-CG-OMv"/>
+                        <outlet property="rescheduleTapGesture" destination="Vnf-BG-rw7" id="nae-7b-u3S"/>
                         <outlet property="rescheduleView" destination="PwN-Ko-Vz0" id="seD-y6-ZA0"/>
                         <outlet property="scrollView" destination="4Rx-hM-aSR" id="cf8-hW-Vwm"/>
                     </connections>
@@ -121,6 +120,16 @@
                         <action selector="onLeftPan:" destination="LgM-8K-CQW" id="Pk6-6H-WnR"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer id="Vnf-BG-rw7" userLabel="Rescheduler Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="onRescheduleTap:" destination="LgM-8K-CQW" id="XGb-mm-zVU"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="lDd-GF-mb7" userLabel="List Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="onListTap:" destination="LgM-8K-CQW" id="AIj-gN-Biy"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="541" y="723"/>
         </scene>
@@ -132,10 +141,9 @@
         <image name="feed" width="320" height="1202"/>
         <image name="help_label" width="320" height="37"/>
         <image name="later_icon" width="25" height="25"/>
-        <image name="later_nav_icon" width="25" height="20"/>
+        <image name="list" width="320" height="568"/>
         <image name="list_icon" width="25" height="25"/>
         <image name="mail_nav_icon" width="25" height="20"/>
-        <image name="menu" width="320" height="568"/>
         <image name="message" width="320" height="86"/>
         <image name="nav" width="320" height="65"/>
         <image name="reschedule" width="320" height="568"/>
