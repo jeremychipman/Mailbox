@@ -25,12 +25,11 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var rescheduleTapGesture: UITapGestureRecognizer!
     @IBOutlet var listTapGesture: UITapGestureRecognizer!
     @IBOutlet weak var feedImage: UIImageView!
-  
+    
     
     
     var messageInitialFrame: CGPoint!
-    var messageLeft: CGPoint!
-    var messageRight: CGPoint!
+    var dragInitialFrame: CGPoint!
     var laterInitialFrame: CGPoint!
     var archiveInitialFrame: CGPoint!
     var deleteInitialFrame: CGPoint!
@@ -42,11 +41,7 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         
         //do additional setup after loading the view.
         
-        listView.alpha=0
-        rescheduleView.alpha=0
-        laterIcon.alpha=0.4
-        deleteIcon.alpha=0
-        listIcon.alpha=0
+        
         
         scrollView.contentSize = CGSize(width: 320, height: 1202)
         
@@ -62,11 +57,11 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         rescheduleTapGesture.numberOfTapsRequired = 2;
         listView.userInteractionEnabled = true
         listView.addGestureRecognizer(listTapGesture)
-
-//        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "onEdgePan:")
-//        mailboxView.userInteractionEnabled=true
-//        edgePanGesture.edges = UIRectEdge.Left
-//        mailboxView.addGestureRecognizer(edgePanGesture)
+        
+        //        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "onEdgePan:")
+        //        mailboxView.userInteractionEnabled=true
+        //        edgePanGesture.edges = UIRectEdge.Left
+        //        mailboxView.addGestureRecognizer(edgePanGesture)
         
         
     }
@@ -99,10 +94,18 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         if messagePanGesture.state == UIGestureRecognizerState.Began {
             print("Gesture began at: \(point)")
             
+            listView.alpha=0
+            rescheduleView.alpha=0
+            laterIcon.alpha=0.4
+            deleteIcon.alpha=0
+            listIcon.alpha=0
             messageInitialFrame = messageView.frame.origin
             laterInitialFrame = laterIcon.frame.origin
+            listInitialFrame = listIcon.frame.origin
             archiveInitialFrame = archiveIcon.frame.origin
             deleteInitialFrame = deleteIcon.frame.origin
+            feedInitialFrame = feedImage.frame.origin
+            dragInitialFrame = dragView.frame.origin
             
             
         } else if messagePanGesture.state == UIGestureRecognizerState.Changed {
@@ -135,7 +138,7 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
                 
             } else if messageTranslation.x > -60 && messageTranslation.x < 0 {
                 dragView.backgroundColor = UIColorFromHex(0xDCDFE0, alpha: 1.0)
-//                if messageTranslation.x < -30 {laterIcon.hidden = false}
+                //                if messageTranslation.x < -30 {laterIcon.hidden = false}
                 
             } else if messageTranslation.x > -260 && messageTranslation.x < -60 {
                 dragView.backgroundColor = UIColorFromHex(0xFFE066, alpha: 1.0)
@@ -146,7 +149,6 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
                 dragView.backgroundColor = UIColorFromHex(0xF4A460, alpha: 1.0)
                 self.laterIcon.alpha = 0
                 self.listIcon.alpha=1
-                self.laterIcon.alpha=0
                 self.archiveIcon.alpha=0
                 self.deleteIcon.alpha=0
                 
@@ -163,7 +165,7 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.scrollView.alpha=0
                     
                     self.dragView.frame.origin.x = CGFloat(self.messageInitialFrame.x)
-                
+                    
                     
                     }, completion: nil)
             }
@@ -183,8 +185,24 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
                     }, completion: nil)
             }
             if messageTranslation.x > 60 {
-                UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-                   self.feedImage.frame.origin.y = CGFloat(self.feedInitialFrame.y - 86)
+                
+                UIView.animateWithDuration(1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+                    UIView.animateWithDuration(5, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+                        self.messageView.frame.origin.y = CGFloat(self.messageInitialFrame.y - 86)
+                        self.feedImage.frame.origin.y = CGFloat(self.feedInitialFrame.y - 86)
+                        }){ (Bool) -> Void in
+                            [self.messageView.frame.origin.x = self.messageInitialFrame.x,
+                                self.messageView.frame.origin.y = self.messageInitialFrame.y,
+                                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                                    self.feedImage.frame.origin.y = self.feedInitialFrame.y
+                                    self.listIcon.frame.origin.x = CGFloat(self.listInitialFrame.x)
+                                    self.laterIcon.frame.origin.x = CGFloat(self.laterInitialFrame.x)
+                                    self.archiveIcon.frame.origin.x = CGFloat(self.archiveInitialFrame.x)
+                                    self.deleteIcon.frame.origin.x = CGFloat(self.deleteInitialFrame.x)
+                                })
+                            ]
+                    }
+                    
                     
                     }, completion: nil)
             }
@@ -196,47 +214,78 @@ class MailboxViewController: UIViewController, UIGestureRecognizerDelegate {
         self.rescheduleView.alpha = 0
         self.mailboxView.alpha=1
         self.scrollView.alpha=1
-        feedImage.frame.origin.y = CGFloat(feedInitialFrame.y - 86)
-
-        
+        self.messageView.frame.origin.x = CGFloat(self.messageInitialFrame.x)
+        UIView.animateWithDuration(1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+            self.messageView.frame.origin.y = CGFloat(self.messageInitialFrame.y - 86)
+            self.feedImage.frame.origin.y = CGFloat(self.feedInitialFrame.y - 86)
+            }){ (Bool) -> Void in
+                [self.messageView.frame.origin.x = self.messageInitialFrame.x,
+                    self.messageView.frame.origin.y = self.messageInitialFrame.y,
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        self.feedImage.frame.origin.y = self.feedInitialFrame.y
+                    })
+                ]
+        }
+        self.listIcon.frame.origin.x = CGFloat(self.listInitialFrame.x)
+        self.laterIcon.frame.origin.x = CGFloat(self.laterInitialFrame.x)
+        self.archiveIcon.frame.origin.x = CGFloat(self.archiveInitialFrame.x)
+        self.deleteIcon.frame.origin.x = CGFloat(self.deleteInitialFrame.x)
         
     }
     @IBAction func onListTap(sender: UITapGestureRecognizer) {
         self.listView.alpha = 0
         self.mailboxView.alpha=1
         self.scrollView.alpha=1
-        feedImage.frame.origin.y = CGFloat(feedInitialFrame.y - 86)
+        self.messageView.frame.origin.x = CGFloat(self.messageInitialFrame.x)
+        UIView.animateWithDuration(1, delay: 1, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
+            self.messageView.frame.origin.y = CGFloat(self.messageInitialFrame.y - 86)
+            self.feedImage.frame.origin.y = CGFloat(self.feedInitialFrame.y - 86)
+            }){ (Bool) -> Void in
+                [self.messageView.frame.origin.x = self.messageInitialFrame.x,
+                    self.messageView.frame.origin.y = self.messageInitialFrame.y,
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        self.feedImage.frame.origin.y = self.feedInitialFrame.y
+                    })
+                ]
+        }
+        self.listIcon.frame.origin.x = CGFloat(self.listInitialFrame.x)
+        self.laterIcon.frame.origin.x = CGFloat(self.laterInitialFrame.x)
+        self.archiveIcon.frame.origin.x = CGFloat(self.archiveInitialFrame.x)
+        self.deleteIcon.frame.origin.x = CGFloat(self.deleteInitialFrame.x)
+        
+        
+        
     }
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    //func onEdgePan (edgePanGesture: UIScreenEdgePanGestureRecognizer){
+    //    var point = edgePanGesture.locationInView(view)
+    //    var translation=edgePanGesture.translationInView(view)
+    //    print("screen edge called \(mailboxView.frame.origin)")
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    }
+    */
 }
-
-
-
-
-
-
-
-//func onEdgePan (edgePanGesture: UIScreenEdgePanGestureRecognizer){
-//    var point = edgePanGesture.locationInView(view)
-//    var translation=edgePanGesture.translationInView(view)
-//    print("screen edge called \(mailboxView.frame.origin)")
-
-
-
-
-
-
-
-
-/*
-// MARK: - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-// Get the new view controller using segue.destinationViewController.
-// Pass the selected object to the new view controller.
-}
-*/
-

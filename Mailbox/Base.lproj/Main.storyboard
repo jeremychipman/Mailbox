@@ -44,17 +44,17 @@
                                                 <rect key="frame" x="285" y="31" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="message" id="X3o-ww-G2G" userLabel="Message View">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="7wE-Nh-9SG" appends="YES" id="Z5B-mz-TbM"/>
+                                                </connections>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="message" id="X3o-ww-G2G" userLabel="Message View">
-                                        <rect key="frame" x="0.0" y="5" width="320" height="86"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="7wE-Nh-9SG" appends="YES" id="Z5B-mz-TbM"/>
-                                        </connections>
-                                    </imageView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="feed" id="GGt-Le-zgJ">
                                         <rect key="frame" x="0.0" y="91" width="320" height="1202"/>
                                         <autoresizingMask key="autoresizingMask"/>
