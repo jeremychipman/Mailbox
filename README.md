@@ -2,7 +2,7 @@
 
 This is the Mailbox prototype by Jeremy Chipman for the iOS for Designers and Product Managers class.
 
-Time: I spent around 16 hours on the assignment. 
+Time: I spent around 19 hours on the assignment. 
 
 Required stories completed:
 
